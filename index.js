@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 const { dbConnection } = require("./database/config");
 require("dotenv").config();
 
@@ -22,6 +23,11 @@ app.use(express.json());
 
 // Asignas rutas /auth
 app.use("/api/auth", Router);
+
+// Manejar demas rutas
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "public/index.html"));
+});
 
 app.listen(process.env.PORT, () => {
   console.log(`Servidor corriendo en el puerto ${process.env.PORT}`);
